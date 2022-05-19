@@ -47,6 +47,10 @@ https://docs.microsoft.com/en-us/dotnet/core/whats-new/dotnet-6
 
 https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotnet-core-cli
 
+**Microsoft dotNET Core Code Generator**
+
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/tools/dotnet-aspnet-codegenerator?view=aspnetcore-6.0
+
 
 ## Project Creation Scripts
 
@@ -84,6 +88,18 @@ https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/?tabs=dotne
 **EntityFrameworkCore Tools**
 
     dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.5
+
+**Code Generation MVC (Scaffold)**
+
+    dotnet add package Microsoft.VisualStudio.Web.CodeGenerators.Mvc --version 6.0.5
+
+**Code Generation Design (Scaffold)**
+
+    dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.0.5
+
+**EFCore SQL Server**
+
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 6.0.5
 
 **SQLite**
 
