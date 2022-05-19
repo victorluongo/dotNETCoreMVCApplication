@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <!-- <Nullable>enable</Nullable> -->
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-dotNETCoreMVCApplication-B7A62646-4C9E-4622-8F2E-58A6BB110970</UserSecretsId>
   </PropertyGroup>

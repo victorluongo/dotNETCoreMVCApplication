@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using dotNETCoreMVCApplication.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace dotNETCoreMVCApplication.Data;
@@ -9,4 +10,8 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
+
+    public DbSet<Product> Products {get; set;}
+    public DbSet<Supplier> Suppliers {get; set;}
+    public DbSet<Address> Addresses {get; set;}
 }
