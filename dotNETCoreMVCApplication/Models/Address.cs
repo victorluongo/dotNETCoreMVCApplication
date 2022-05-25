@@ -17,13 +17,13 @@ namespace dotNETCoreMVCApplication.Models
         public string StreetName {get; set;}
 
         [Required(ErrorMessage = "{0} is required.")]
-        [StringLength(15, ErrorMessage = "{0} can't be less than {1} or greater then {1}", MinimumLength = 3)]
+        [StringLength(15, ErrorMessage = "{0} can't be less than {2} or greater then {1}", MinimumLength = 3)]
         public string Number {get; set;}
         
         public string Complemment {get; set;}
         
         [Required(ErrorMessage = "{0} is required.")]
-        [StringLength(8, ErrorMessage = "{9} must be {1}")]
+        [StringLength(8, ErrorMessage = "{0} must be {1}")]
         public string ZipCode {get; set;}
 
         [Required(ErrorMessage = "{0} is required.")]

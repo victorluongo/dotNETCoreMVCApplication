@@ -36,6 +36,8 @@
             @Html.DisplayFor(model => model.Active)
         </dd>
     </dl>
+
+    <partial name="_Address/Delete" />
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
@@ -43,3 +45,7 @@
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

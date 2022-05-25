@@ -34,6 +34,7 @@ namespace dotNETCoreMVCApplication.Controllers
             }
 
             var supplier = await _context.Suppliers
+                .Include(a => a.Address)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (supplier == null)
             {
@@ -54,7 +55,7 @@ namespace dotNETCoreMVCApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Document,SupplierType,Active,Id")] Supplier supplier)
+        public async Task<IActionResult> Create(Supplier supplier)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +75,10 @@ namespace dotNETCoreMVCApplication.Controllers
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers.FindAsync(id);
+            var supplier = await _context.Suppliers
+                .Include(a => a.Address)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (supplier == null)
             {
                 return NotFound();
@@ -87,7 +91,7 @@ namespace dotNETCoreMVCApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Document,SupplierType,Active,Id")] Supplier supplier)
+        public async Task<IActionResult> Edit(Guid id, Supplier supplier)
         {
             if (id != supplier.Id)
             {
@@ -126,6 +130,7 @@ namespace dotNETCoreMVCApplication.Controllers
             }
 
             var supplier = await _context.Suppliers
+                .Include(a => a.Address)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (supplier == null)
             {
