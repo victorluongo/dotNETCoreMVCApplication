@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form enctype="multipart/form-data" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="SupplierId" class="control-label"></label>
@@ -27,9 +27,12 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="ImageUpload" class="control-label"></label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="ImageUpload" asp-for="ImageUpload">
+                    <label style="display: none" id="ImageName"></label>
+                </div>
+                <span asp-validation-for="ImageUpload" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
@@ -57,3 +60,17 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $("#ImageUpload").change(function () {
+            $("#ImageName").text(this.files[0].name);
+            $("#ImageName")[0].style.display = 'block';
+        });
+
+        $("#ImageUpload").attr("data-val", "true");
+        $("#ImageUpload").attr("data-val-required", "Image file is required");
+    </script>
+}

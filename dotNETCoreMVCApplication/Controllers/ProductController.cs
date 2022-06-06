@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using dotNETCoreMVCApplication.Data;
 using dotNETCoreMVCApplication.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace dotNETCoreMVCApplication.Controllers
 {
@@ -62,6 +63,13 @@ namespace dotNETCoreMVCApplication.Controllers
             if (ModelState.IsValid)
             {
                 product.Id = Guid.NewGuid();
+
+                var imagePrefix = Guid.NewGuid() + "_";
+                if(!await fileUpload(product.ImageUpload, imagePrefix)) {
+                    return View(product);
+                }
+                product.Image = imagePrefix + product.ImageUpload.FileName;
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -103,6 +111,15 @@ namespace dotNETCoreMVCApplication.Controllers
             {
                 try
                 {
+                    if(product.ImageUpload != null)
+                    {
+                        var imagePrefix = Guid.NewGuid() + "_";
+                        if(!await fileUpload(product.ImageUpload, imagePrefix)) {
+                            return View(product);
+                        }
+                        product.Image = imagePrefix + product.ImageUpload.FileName;
+                    }
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -165,5 +182,28 @@ namespace dotNETCoreMVCApplication.Controllers
         {
           return _context.Products.Any(e => e.Id == id);
         }
+
+        private async Task<bool> fileUpload(IFormFile formFile, string imagePrefix)
+        {
+            if(formFile.Length <= 0)
+            {
+                return false;
+            }
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", imagePrefix + formFile.FileName);
+
+            if(System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "File already existis.");
+                return false;
+            }
+            
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stream);
+            }
+
+            return true;
+        } 
     }
 }
