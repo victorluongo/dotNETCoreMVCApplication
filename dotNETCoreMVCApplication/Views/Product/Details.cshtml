@@ -56,6 +56,9 @@
                 </dt>
                 <dd class = "col-sm-10">
                     @Html.DisplayFor(model => model.Supplier.Name)
+                    <a asp-action="SupplierDetails" asp-route-Id="@Model.Id" data-modal="" data-bs-toggle="modal" data-bs-target="#myModal">
+                        <i class="fas fa-edit text-secondary"></i>
+                    </a>
                 </dd>
             </dl>
         </div>
@@ -65,3 +68,22 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<div id="myModal" class="modal fade in" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        @*modal-lg / modal-fullscreen / modal-dialog-scrollable*@
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            SetModal();
+        });
+    </script>
+}

@@ -205,5 +205,23 @@ namespace dotNETCoreMVCApplication.Controllers
 
             return true;
         } 
+
+        public async Task<IActionResult> SupplierDetails(Guid? id)
+        {
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.Supplier).ThenInclude(p => p.Address)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_SupplierDetails", product);
+        }
     }
 }

@@ -1,0 +1,78 @@
+@model dotNETCoreMVCApplication.Models.Product
+
+@{
+    ViewData["Title"] = "Supplier Details";
+}
+
+<div class="modal-header">
+    <h5 class="modal-title">@ViewData["Title"]</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<form asp-action="SupplierDetails">
+
+    <div class="modal-body">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Supplier.Id" />
+
+        <div class="col-xs-10">
+            <dl>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Supplier.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Supplier.Name)
+                </dd>
+                <dt class="col-sm-10">
+                    @Html.DisplayNameFor(model => model.Supplier.Document)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Supplier.Document)
+                </dd>
+                <dt class="col-sm-10">
+                    @Html.DisplayNameFor(model => model.Supplier.Address.ZipCode)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Supplier.Address.ZipCode)
+                </dd>
+                <dt class="col-sm-10">
+                    @Html.DisplayNameFor(model => model.Supplier.Address.StreetName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Supplier.Address.StreetName)
+                </dd>
+                <dt class="col-sm-10">
+                    @Html.DisplayNameFor(model => model.Supplier.Address.Number)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Supplier.Address.Number)
+                </dd>
+                <dt class="col-sm-10">
+                    @Html.DisplayNameFor(model => model.Supplier.Address.Complemment)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Supplier.Address.Complemment)
+                </dd>
+                <dt class="col-sm-10">
+                    @Html.DisplayNameFor(model => model.Supplier.Address.City)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Supplier.Address.City)
+                </dd>
+                <dt class="col-sm-10">
+                    @Html.DisplayNameFor(model => model.Supplier.Address.State)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Supplier.Address.State)
+                </dd>
+            </dl>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+
+    </div>
+
+</form>
