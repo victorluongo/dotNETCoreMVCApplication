@@ -79,6 +79,7 @@ function bindForm(dialog) {
             success: function (result) {
                 if (result.success) {
                     $('#myModal').modal('hide');
+                    $('#myModalContentTarget').load(result.url);
                 } else {
                     $('#myModalContent').html(result);
                     bindForm(dialog);

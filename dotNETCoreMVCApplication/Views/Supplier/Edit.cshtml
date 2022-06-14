@@ -9,36 +9,47 @@
 <h4>Supplier</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-10">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Document" class="control-label"></label>
+                        <input asp-for="Document" class="form-control" />
+                        <span asp-validation-for="Document" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SupplierType" class="control-label"></label>
+                        <br /><input type="radio" value="1" asp-for="SupplierType" checked="@((int)Model.SupplierType==1)" /> Individual
+                        <br /><input type="radio" value="2" asp-for="SupplierType" checked="@((int)Model.SupplierType==2)" /> Corporate
+                        <span asp-validation-for="SupplierType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Document" class="control-label"></label>
-                <input asp-for="Document" class="form-control" />
-                <span asp-validation-for="Document" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SupplierType" class="control-label"></label>
-                <br /><input type="radio" value="1" asp-for="SupplierType" checked="@((int)Model.SupplierType==1)" /> Individual
-                <br /><input type="radio" value="2" asp-for="SupplierType" checked="@((int)Model.SupplierType==2)" /> Corporate
-                <span asp-validation-for="SupplierType" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                </label>
-            </div>
-
-            <partial name="_Address/Edit" />
-
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="row">
+                <div class="col-md-10">
+                    <div id="myModalContentTarget">
+                        <partial name="_Address/Details" />
+                    </div>
+                    <a asp-action="AddressDetails" asp-route-Id="@Model.Address.Id" data-modal="" data-bs-toggle="modal" data-bs-target="#myModal">
+                        <p><i class="fas fa-edit text-primary"></i> Edit Address</p>
+                    </a>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
             </div>
         </form>
     </div>
@@ -48,11 +59,22 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<div id="myModal" class="modal fade in" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        @*modal-lg / modal-fullscreen / modal-dialog-scrollable*@
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script>
-        ZipCodeSearch();
-    </script>    
+    <script>ZipCodeSearch();
+
+        $(document).ready(function () {
+            SetModal();
+        });</script>
 }
 

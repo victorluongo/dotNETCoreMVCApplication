@@ -163,5 +163,52 @@ namespace dotNETCoreMVCApplication.Controllers
         {
           return _context.Suppliers.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> AddressDetails(Guid id)
+        {
+            var supplier = await _context.Suppliers
+                .Include(a => a.Address)
+                .FirstOrDefaultAsync(m => m.Address.Id == id);
+
+            if (supplier == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_AddressDetails", supplier);
+        }        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddressDetails(Supplier supplier)
+        {
+            ModelState.Remove("Name");
+            ModelState.Remove("Document");
+
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_AddressDetails", supplier);
+            }
+
+            _context.Update(supplier.Address);
+            await _context.SaveChangesAsync();
+
+            var url = Url.Action("AddressRefresh", "Supplier", new { id = supplier.Address.Id });
+            return Json(new { success = true, url });
+        }
+        
+        public async Task<IActionResult> AddressRefresh(Guid id)
+        {
+            var supplier = await _context.Suppliers
+                .Include(a => a.Address)
+                .FirstOrDefaultAsync(m => m.Address.Id == id);
+
+            if (supplier == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_Address/Details", supplier);
+        }
     }
 }
